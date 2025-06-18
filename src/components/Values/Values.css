@@ -1,0 +1,77 @@
+/* Values.css */
+.values-section {
+  position: relative;
+  /* z-index: 10; */
+  /* margin-top: -150px;   */
+  /* margen negativo para superponer con Hero */
+
+  /* padding-top: 0;          */
+   /* eliminamos padding superior */
+  /* padding-bottom: 100px;      */
+  /* añadimos padding inferior */
+  background-color: #f9f9f9;
+  margin-bottom: -50px; /* Añadimos margen negativo para reducir espacio */
+}
+
+/* Esta capa es el "fondo" parallax */
+.values-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: #f9f9f9; /* o image: url(...) */
+  z-index: 1;
+}
+
+/* Contenedor de cards, por encima del fondo */
+.values-container {
+  position: relative;
+  z-index: 20;              /* aumentamos z-index para asegurar que esté por encima */
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;            /* reducimos el padding */
+  gap: 30px;
+}
+
+.value-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+  flex: 1;
+  margin-top: 30px;         /* añadimos margen superior */
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.value-icon {
+  font-size: 3rem;
+  color: #3498db;
+  margin-bottom: 20px;
+}
+
+.value-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.value-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .values-container {
+    flex-direction: column;
+  }
+  .value-card {
+    margin-bottom: 20px;
+  }
+}

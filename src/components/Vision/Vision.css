@@ -1,0 +1,58 @@
+.vision-section {
+  padding: 100px 0;
+  background-color: #f9f9f9;
+}
+
+.vision-container {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 50px;
+}
+
+.vision-content {
+  flex: 1;
+}
+
+.vision-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  position: relative;
+}
+
+.vision-content h2:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: #3498db;
+}
+
+.vision-content p {
+  color: #666;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.vision-image {
+  flex: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .vision-container {
+    flex-direction: column;
+  }
+  
+  .vision-content,
+  .vision-image {
+    width: 100%;
+  }
+}
