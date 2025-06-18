@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { FaTimes } from 'react-icons/fa';
 import QRCode from 'react-qr-code';
 import './Team.css';
+import teamService from '../../services/teamService';
 
 // Set the app element for accessibility
 Modal.setAppElement('#root');
@@ -10,48 +11,36 @@ Modal.setAppElement('#root');
 const Team = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'Federico Zoia',
-      position: 'Asesor de Ventas',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
-      bio: 'Stats helps you see how many more days you need to work to reach your financial goal for the month and year.',
-      social: {
-        twitter: 'https://twitter.com',
-        linkedin: 'https://linkedin.com',
-        instagram: 'https://instagram.com'
-      },
-      uniqueLink: 'https://zellgo.com/vendedor/federico-zoia'
-    },
-    {
-      id: 2,
-      name: 'Laura Martínez',
-      position: 'Directora de Operaciones',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80',
-      bio: 'Stats helps you see how many more days you need to work to reach your financial goal for the month and year.',
-      social: {
-        twitter: 'https://twitter.com',
-        linkedin: 'https://linkedin.com',
-        instagram: 'https://instagram.com'
-      },
-      uniqueLink: 'https://zellgo.com/vendedor/laura-martinez'
-    },
-    {
-      id: 3,
-      name: 'Carlos Rodríguez',
-      position: 'Desarrollador Senior',
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
-      bio: 'Stats helps you see how many more days you need to work to reach your financial goal for the month and year.',
-      social: {
-        twitter: 'https://twitter.com',
-        linkedin: 'https://linkedin.com',
-        instagram: 'https://instagram.com'
-      },
-      uniqueLink: 'https://zellgo.com/vendedor/carlos-rodriguez'
-    }
-  ];
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      try {
+        setLoading(true);
+        const data = await teamService.getAllMembers();
+        
+        if (data && data.length > 0) {
+          setTeamMembers(data);
+        } else {
+          // Si no hay datos o el array está vacío, usamos los datos de fallback
+          setTeamMembers(teamService.getFallbackData());
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error('Error al cargar miembros del equipo:', err);
+        setError('No se pudieron cargar los miembros del equipo');
+        // Usamos datos de fallback en caso de error
+        setTeamMembers(teamService.getFallbackData());
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeamMembers();
+  }, []);
 
   const openModal = (member) => {
     setSelectedMember(member);
@@ -71,18 +60,24 @@ const Team = () => {
           Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics
         </p>
         
-        <div className="team-members">
-          {teamMembers.map((member) => (
-            <div key={member.id} className="team-member" onClick={() => openModal(member)}>
-              <div className="member-image">
-                <img src={member.image} alt={member.name} />
+        {loading ? (
+          <div className="loading-indicator">Cargando miembros del equipo...</div>
+        ) : error ? (
+          <div className="error-message">{error}</div>
+        ) : (
+          <div className="team-members">
+            {teamMembers.map((member) => (
+              <div key={member.id} className="team-member" onClick={() => openModal(member)}>
+                <div className="member-image">
+                  <img src={member.image} alt={member.name} />
+                </div>
+                <h3>{member.name}</h3>
+                <p>{member.position}</p>
+                <p className="member-bio">{member.bio}</p>
               </div>
-              <h3>{member.name}</h3>
-              <p>{member.position}</p>
-              <p className="member-bio">{member.bio}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <Modal

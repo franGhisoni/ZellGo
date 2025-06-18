@@ -1,7 +1,7 @@
 .team-section {
   padding: 100px 0;
-  background-color: #3498db;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
 }
 
 .team-container {
@@ -146,7 +146,7 @@
 }
 
 .modal-position {
-  color: #3498db;
+  color: var(--secondary-color);
   font-size: 1.2rem;
   font-weight: 500;
 }
@@ -163,14 +163,14 @@
 }
 
 .modal-social a {
-  color: #3498db;
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .modal-social a:hover {
-  color: #2980b9;
+  color: var(--primary-dark);
 }
 
 .modal-qr-section {
@@ -203,8 +203,26 @@
 }
 
 .qr-link a {
-  color: #3498db;
+  color: var(--primary-color);
   word-break: break-all;
+}
+
+.loading-indicator {
+  padding: 30px;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+.error-message {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 @media (max-width: 768px) {

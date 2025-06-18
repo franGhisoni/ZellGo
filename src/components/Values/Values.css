@@ -2,14 +2,13 @@
 .values-section {
   position: relative;
   /* z-index: 10; */
-  /* margin-top: -150px;   */
   /* margen negativo para superponer con Hero */
 
   /* padding-top: 0;          */
    /* eliminamos padding superior */
   /* padding-bottom: 100px;      */
   /* añadimos padding inferior */
-  background-color: #f9f9f9;
+  background-color: var(--background-light);
   margin-bottom: -50px; /* Añadimos margen negativo para reducir espacio */
 }
 
@@ -48,18 +47,18 @@
 
 .value-icon {
   font-size: 3rem;
-  color: #3498db;
+  color: var(--secondary-color);
   margin-bottom: 20px;
 }
 
 .value-card h3 {
   font-size: 1.5rem;
   margin-bottom: 15px;
-  color: #333;
+  color: var(--text-dark);
 }
 
 .value-card p {
-  color: #666;
+  color: var(--text-light);
   line-height: 1.6;
 }
 
