@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 // Import all components
@@ -17,12 +17,62 @@ import Blog from './components/Blog/Blog'
 import Newsletter from './components/Newsletter/Newsletter'
 import Contact from './components/Contact/Contact'
 
+// Import Dashboard components
+import SellerDashboard from './components/SellerDashboard/SellerDashboard'
+import AdminDashboard from './components/AdminDashboard/AdminDashboard'
+
 // Import AuthProvider
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth } from './context/AuthContext'
 
 function App() {
   return (
     <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  )
+}
+
+function AppContent() {
+  const { currentUser, isAuthenticated } = useAuth();
+  const [userRole, setUserRole] = useState(null);
+  
+  useEffect(() => {
+    // Determinar el rol del usuario cuando se autentica
+    if (isAuthenticated && currentUser) {
+      // En un entorno real, esto vendría del objeto currentUser
+      // Por ahora, lo determinamos por el email para pruebas
+      if (currentUser.email === 'admin@zellgo.com') {
+        setUserRole('admin');
+      } else if (currentUser.email === 'vendedor@zellgo.com') {
+        setUserRole('seller');
+      } else {
+        setUserRole('visitor');
+      }
+    } else {
+      setUserRole('visitor');
+    }
+  }, [currentUser, isAuthenticated]);
+
+  // Renderizar el dashboard correspondiente según el rol del usuario
+  if (isAuthenticated && userRole === 'admin') {
+    return (
+      <>
+        <Navbar />
+        <AdminDashboard />
+      </>
+    );
+  } else if (isAuthenticated && userRole === 'seller') {
+    return (
+      <>
+        <Navbar />
+        <SellerDashboard />
+      </>
+    );
+  }
+
+  // Renderizar la página principal para visitantes o usuarios sin rol específico
+  return (
+    <>
       <Navbar />
       <main>
         <Hero />
@@ -41,7 +91,7 @@ function App() {
         <Newsletter />
         <Contact />
       </main>
-    </AuthProvider>
+    </>
   )
 }
 
