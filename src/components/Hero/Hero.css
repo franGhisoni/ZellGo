@@ -3,8 +3,7 @@
 .hero-section {
   height: 100vh;
   width: 100%;
-  /* position: relative;    */
-  /* crea stacking context */
+  position: relative;   /* crea stacking context */
   z-index: 1;           /* nivel bajo para que otros puedan superponerse */
   margin: 0;
   padding: 0;
@@ -14,8 +13,7 @@
 .hero-parallax {
   height: 100vh;
   width: 100%;
-  /* position: relative;    */
-  /* necesario para que z-index funcione */
+  position: relative;   /* necesario para que z-index funcione */
   z-index: 1;           /* mismo nivel que el section padre */
 }
 
@@ -24,8 +22,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 70%;
-    left: 50%;
+    top: 70vh;
+    left: 50vw;
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;

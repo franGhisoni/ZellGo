@@ -16,7 +16,7 @@ const Values = () => {
   // el fondo se mueve despacio (factor 0.2) 
   // y el contenido rápido (factor 0.5)
   const bgTranslate = -offsetY * 0.2;
-  const contentTranslate = -offsetY * 0.7;
+  const contentTranslate = -offsetY * 0.2;
 
   const values = [
     { id: 1, icon: <FaHandshake className="value-icon" />, title: 'Confianza',  description: 'Cada cliente recibe una atención honesta y transparente.' },
