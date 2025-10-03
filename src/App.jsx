@@ -22,13 +22,11 @@ import SellerDashboard from './components/SellerDashboard/SellerDashboard'
 import AdminDashboard from './components/AdminDashboard/AdminDashboard'
 
 // Import AuthProvider
-import { AuthProvider, useAuth } from './context/AuthContext'
+import { useAuth } from './context/AuthContext'
 
 function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <AppContent />
   )
 }
 

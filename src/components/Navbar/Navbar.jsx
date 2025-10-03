@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './Navbar.css';
-import { Link } from 'react-scroll';
 import Auth from '../Auth/Auth';
 import { useAuth } from '../../context/AuthContext';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
@@ -49,13 +48,13 @@ const Navbar = () => {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
           <div className="navbar-logo">
-            <a href="#">ZellGo</a>
+            <a href="/">ZellGo</a>
           </div>
           <div className="navbar-links">
-            <Link to="inicio" smooth={true} duration={500}>Inicio</Link>
-            <Link to="nosotros" smooth={true} duration={500}>Nosotros</Link>
-            <Link to="contacto" smooth={true} duration={500}>Contacto</Link>
-            <Link to="trabaja" smooth={true} duration={500}>Trabaja con Nosotros</Link>
+            <a href="/">Inicio</a>
+            <a href="/#nosotros">Nosotros</a>
+            <a href="/#contacto">Contacto</a>
+            <a href="/#trabaja">Trabaja con Nosotros</a>
           </div>
           <div className="navbar-auth">
             {isAuthenticated ? (

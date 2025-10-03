@@ -3,7 +3,7 @@
 /**
  * Configuración base para las peticiones a la API
  */
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.example.com';
+const API_URL = (import.meta.env.VITE_API_URL || 'https://api.example.com').replace(/\/$/, '');
 
 /**
  * Función para realizar peticiones a la API
@@ -12,10 +12,17 @@ const API_URL = import.meta.env.VITE_API_URL || 'https://api.example.com';
  * @returns {Promise} - Promesa con la respuesta
  */
 async function fetchAPI(endpoint, options = {}) {
-  const url = `${API_URL}${endpoint}`;
+  // Normaliza la URL final y evita duplicar /api (p.ej. base .../api + endpoint /api/empleados)
+  let path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  if (API_URL.endsWith('/api') && path.startsWith('/api')) {
+    path = path.replace(/^\/api/, '');
+  }
+  const url = `${API_URL}${path}`;
   
+  const token = import.meta.env.VITE_STRAPI_TOKEN;
   const defaultHeaders = {
     'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
   const config = {
