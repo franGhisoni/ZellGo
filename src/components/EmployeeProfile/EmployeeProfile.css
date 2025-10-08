@@ -1,7 +1,9 @@
 .emp-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 180px 24px 48px; /* contenido más abajo */
+  padding: 140px 24px 56px; /* un poco más cercano al resto de secciones */
+  position: relative; /* para asegurar stacking por encima del overlay */
+  z-index: 1;
 }
 
 .emp-layout {
@@ -21,6 +23,17 @@ body.profile-bg {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+}
+
+/* Overlay sutil en toda la vista para igualar estética del sitio */
+body.profile-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  /* Filtro azul intenso, mismo estilo solicitado */
+  background: linear-gradient(135deg, rgba(57, 84, 156, 0.9) 0%, rgba(42, 64, 128, 0.9) 100%);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .emp-header {
@@ -102,13 +115,11 @@ body.profile-bg {
 
 .emp-card {
   border: none;
-  border-radius: 14px;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.55);
-  color: #ffffff;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 20px;
+  background: #ffffff; /* tarjetas blancas como en el resto de la web */
+  color: var(--text-dark);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .emp-card h2 {
@@ -143,7 +154,7 @@ body.profile-bg {
 
 .emp-dni {
   font-size: 13px;
-  color: rgba(255,255,255,0.85);
+  color: var(--text-light);
 }
 
 

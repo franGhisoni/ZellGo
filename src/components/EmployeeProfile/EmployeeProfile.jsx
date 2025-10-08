@@ -55,6 +55,20 @@ function buildDriveCandidates(originalUrl) {
   ];
 }
 
+function MiniAvatar({ url, label }) {
+  const [failed, setFailed] = useState(!url);
+  const initial = (label || 'E').charAt(0);
+  return (
+    <div className="emp-avatar mini">
+      {!failed && url ? (
+        <img src={url} alt={label || 'Avatar'} onError={() => setFailed(true)} />
+      ) : (
+        <div className="emp-avatar-fallback">{initial}</div>
+      )}
+    </div>
+  );
+}
+
 export default function EmployeeProfile() {
   const { codigo } = useParams();
   const [loading, setLoading] = useState(true);
@@ -191,13 +205,7 @@ export default function EmployeeProfile() {
               <h2>Superior</h2>
               {supervisor ? (
                 <Link to={`/empleado/${supervisor?.codigo_vendedor || ''}`} className="emp-superior">
-                  <div className="emp-avatar mini">
-                    {supervisor?.foto_url ? (
-                      <img src={supervisor.foto_url} alt={supervisor?.nombre_completo || 'S'} />
-                    ) : (
-                      <div className="emp-avatar-fallback">{(supervisor?.nombre_completo || 'S').charAt(0)}</div>
-                    )}
-                  </div>
+                  <MiniAvatar url={supervisor?.foto_url} label={supervisor?.nombre_completo || 'S'} />
                   <div>
                     <div className="emp-name">{supervisor?.nombre_completo || '—'}</div>
                     <div className="emp-dni">DNI: {supervisor?.dni || '—'}</div>
@@ -215,13 +223,7 @@ export default function EmployeeProfile() {
                   {subordinados.map((sub) => (
                     <li key={sub.id}>
                       <Link to={`/empleado/${sub.codigo_vendedor || sub.documentId || sub.id}`} className="emp-superior">
-                        <div className="emp-avatar mini">
-                          {sub?.foto_url ? (
-                            <img src={sub.foto_url} alt={sub?.nombre_completo || sub?.alias || 'E'} />
-                          ) : (
-                            <div className="emp-avatar-fallback">{(sub?.nombre_completo || sub?.alias || 'E').charAt(0)}</div>
-                          )}
-                        </div>
+                        <MiniAvatar url={sub?.foto_url} label={sub?.nombre_completo || sub?.alias || 'E'} />
                         <span className="emp-name">{sub?.nombre_completo || sub?.alias || sub?.codigo_vendedor || ''}</span>
                       </Link>
                     </li>
